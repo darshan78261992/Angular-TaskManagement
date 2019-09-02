@@ -34,10 +34,10 @@ namespace TaskManager.API.Tests
             TaskModel record = new TaskModel()
             { Task ="Current Task",
               ParentTask ="Parent Task",
-              Project ="Project Manager",
+              ProjectId =7,
               Priority= 2,
               Status ="Completed",
-              User ="ABC",
+              UserId =1,
               StartDate =DateTime.Now,
               EndDate =DateTime.Now
             };
@@ -64,10 +64,10 @@ namespace TaskManager.API.Tests
                 TaskId = taskID,
                 Task = "Current Task",
                 ParentTask = "Parent Task",
-                Project = "Project Manager",
+                //ProjectId = "Project Manager",
                 Priority = 2,
                 Status = "Completed",
-                User = "ABC",
+                //User = "ABC",
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now
             };
