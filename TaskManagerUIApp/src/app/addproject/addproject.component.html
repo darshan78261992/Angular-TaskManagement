@@ -1,0 +1,129 @@
+<div class="pb-2 mt-4 mb-2 border-bottom">
+  <h3>Add Project</h3>
+</div>
+<form #projectForm="ngForm" (ngSubmit)="projectForm.form.valid && onSubmit(projectForm,projectForm.value)" novalidate>
+  <div class="form-group row">
+    <label for="project" class="col-sm-2 col-form-label"><strong>Project:</strong></label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" name='projectname' #projectname="ngModel" required [(ngModel)]="Projects"
+      [ngClass]="{ 'is-invalid': projectForm.submitted && projectname.invalid }" placeholder="Project Name" />      
+      <div *ngIf="projectForm.submitted && projectname.invalid" class="invalid-feedback">
+        <div *ngIf="projectname.errors.required">Project name is required.</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-3">
+      <div class="col-sm-6" class="form-check">
+        <input class="form-check-input" name="setStartEndDae" type="checkbox" 
+          (change)="changeCheck($event,startDateInput,endDateInput)" id="setStartEndDae">
+        <label class="form-check-label" for="defaultCheck1">
+          :Set Start and End Date
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-6 row datemargin ">
+      <div class="datewidth startdatepadding">
+        <input #startDateInput id="startDate" class="form-control" name="stDate" #stDate="ngModel"
+        [ngClass]="{ 'is-invalid': projectForm.submitted && stDate.invalid }" [disabled]="disabledDate" [(ngModel)]="StartDate" (change)="ValidDate(stDate,eDate)" />
+        <div *ngIf="projectForm.submitted && stDate.invalid" class="invalid-feedback">
+          <div *ngIf="stDate.errors.required">Start Date is required.</div>
+        </div>
+      </div>
+      <div class="datewidth">
+        <input #endDateInput id="endDate" class="form-control" [disabled]="disabledDate" name="eDate" #eDate="ngModel"
+        [ngClass]="{ 'is-invalid': projectForm.submitted && eDate.invalid }" [(ngModel)]="EndDate " (change)="ValidDate(stDate,eDate)" />
+        <div *ngIf="projectForm.submitted && eDate.invalid" class="invalid-feedback">
+          <div *ngIf="eDate.errors.required">End Date is required.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label"><strong>Priority:</strong></label>
+
+    <div class="col-sm-9" style="display: inline-flex">
+      <label>0</label>
+      <input type="range" class="custom-range" max="30" min="0"  step="1" name="range" #range="ngModel" [(ngModel)]="Priority">
+      <label>30</label></div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label"><strong>Manager:</strong></label>
+    <div class="col-sm-7">
+      <input type="hidden" class="form-control" id="manager" name="mgrId" #mgrId="ngModel" [(ngModel)]='ManagerId'
+        required />
+      <input type="text" class="form-control" id="managerName" disabled placeholder="Enter Manager Name" name="mgrName"
+        #mgrName="ngModel" [ngClass]="{ 'is-invalid': projectForm.submitted && mgrName.invalid }" [(ngModel)]='ManagerName' required />
+      <div *ngIf="projectForm.submitted && mgrName.invalid" class="invalid-feedback">
+        <div *ngIf="mgrName.errors.required">Please assign project.</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-sm btn-secondary searchbutbackcolcor" id="search" (click)='openModal()'
+        type="button">Search</button>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6">
+      <button type="submit" id="btnaddproject" class="btn btn-primary mr-2 butbackcolcor">Add</button>
+      <button type="button" class="btn btn-secondary butbackcolcor" (click)='onResetClick(projectForm)'>Reset</button>
+    </div>
+  </div>
+
+</form>
+
+<div class="row">
+  <div id="modal-backdrop" class="modal-backdrop-transparent modal-transition modal-backdrop-grey"
+    [ngStyle]="{'display':display}"></div>
+  <!-- Modal section -->
+  <div id="bootstrapModel" class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-dialog-centered">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Managers List</h6>
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <!-- model body section -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="text" class="form-control" id="searchmanager" placeholder="Search Manager..." name="project"
+                (keyup)="searchUser($event)" ngModel required />
+            </div>
+          </div>
+          <div class="row">
+            <ul class="list-group list-group-flush col-md-12" style="max-height: 200px; overflow: auto;">
+              <li *ngFor="let user of Users" class='list-group-item d-flex justify-content-between align-items-center'
+                [class.selected]="user === selectedItem" (click)="onSelect(user)">
+                {{user.FirstName}} {{user.LastName}} <span>{{user.EmployeeId}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="row d-none" *ngIf="selectedItem">
+            <div><span>id: </span>{{selectedItem.EmployeeId}}</div>
+            <div>
+              <label>name: {{selectedItem.FirstName}} {{selectedItem.LastName}}
+              </label>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCloseHandled()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="onSelectedManager1()">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-viewproject [project]="project" (valueProjectUpdate)="getProjectUpdatedvalue($event)"></app-viewproject>

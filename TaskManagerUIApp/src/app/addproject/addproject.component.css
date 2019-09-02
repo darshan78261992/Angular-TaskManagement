@@ -1,0 +1,40 @@
+.textboxwidth{
+width: 80%;
+}
+input[type="date"]::before{
+    color: #ffffff;
+    content: attr(placeholder) ": ";
+ }
+ input[type="date"]:focus::before {
+    content: "" !important;
+ }
+ .datemargin{
+     margin-left: 0;
+ }
+ .datewidth{
+     width: 50%;
+ }
+ .startdatepadding {
+     padding-right: 5px;
+ }
+.butbackcolcor {
+    background-color: #A9A9A9;
+    border-color: rgba(14, 11, 11, 0.808);
+    color: black;
+    width: 40%;
+}
+.searchbutbackcolcor {
+    background-color: #A9A9A9;
+    border-color: rgba(14, 11, 11, 0.808);
+    color: black;
+    width: 60%;
+}
+.list-group li.selected {
+    background-color:rgb(99, 66, 248);
+    color: white;
+  }
+  .list-group li.selected:hover {
+    background-color: #BBD8DC;
+    color: white;
+  }
+

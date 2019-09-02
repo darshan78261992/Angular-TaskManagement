@@ -1,0 +1,56 @@
+<div class="pb-2 mt-4 mb-2 border-bottom">
+  <h3>Add User</h3>
+</div>
+<form name="form" #usertemplateForm="ngForm"
+  (ngSubmit)="usertemplateForm.form.valid &&  onSubmit(usertemplateForm,usertemplateForm.value)" novalidate>
+  <div class="form-group row">
+    <label for="frstName" class="col-sm-2 col-form-label"><strong>First Name:</strong></label>
+    <div class="col-sm-4">
+      <input type="text" name="firstname" class="form-control" id="txtfirstname" #first_name="ngModel" required
+      [ngClass]="{ 'is-invalid': usertemplateForm.submitted && first_name.invalid }"
+        [(ngModel)]="fstname" placeholder="First Name" />
+
+      <div *ngIf="usertemplateForm.submitted && first_name.invalid" class="invalid-feedback">
+        <div *ngIf="first_name.errors.required">First Name is required</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="lastName" class="col-sm-2 col-form-label"><strong> Name:</strong></label>
+    <div class="col-sm-4">
+      <input type="text" name="lastname" class="form-control" #last_name="ngModel" required [(ngModel)]="lstname"
+      [ngClass]="{ 'is-invalid': usertemplateForm.submitted && last_name.invalid }"
+        placeholder="Last Name" />
+
+      <div *ngIf="usertemplateForm.submitted && last_name.invalid" class="invalid-feedback">
+        <div *ngIf="last_name.errors.required">Last Name is required</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="employeeid" class="col-sm-2 col-form-label"><strong>Employee ID:</strong></label>
+
+    <div class="col-sm-4">
+      <input type="number" name="employid" class="form-control" id="txtempid" #employ_id="ngModel" required
+      [ngClass]="{ 'is-invalid': usertemplateForm.submitted && employ_id.invalid }"
+        [(ngModel)]="empid" placeholder="Employee ID" />
+
+      <div *ngIf="usertemplateForm.submitted && employ_id.invalid" class="invalid-feedback">
+        <div *ngIf="employ_id.errors.required">Employee Id is required</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-5">
+      <button type="submit"  id="btnadditem"  class="btn btn-primary mr-2 butbackcolcor">Add</button>
+      <button type="button" class="btn btn-secondary butbackcolcor"
+        (click)="onResetClick(usertemplateForm)">Reset</button>
+    </div>
+  </div>
+</form>
+<hr />
+<form class="form-group"> 
+  <app-viewuser [user]="user" (valueUpdate)="getUpdatedvalue($event)"></app-viewuser>
+</form>

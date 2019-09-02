@@ -1,0 +1,22 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="card">
+  <div class="card-header">
+    <h1>
+      {{ title }}
+    </h1>
+  </div>
+  <div class="card-body container">
+    <div class="form-group row">
+        <button class="btn btn-link" [routerLink]="['/addproject']" routerLinkActive="router-link-active">Add
+          Project</button>
+      <button class="btn btn-link" [routerLink]="['/addtask']" routerLinkActive="router-link-active">Add
+        Task</button>
+        <button class="btn btn-link" [routerLink]="['/addUser']" routerLinkActive="router-link-active">Add
+          User</button>
+      <button class="btn btn-link" [routerLink]="['/viewtask']">View Task</button>
+    </div>
+    <div class="">
+    <router-outlet></router-outlet>
+  </div>
+  </div>
+</div>

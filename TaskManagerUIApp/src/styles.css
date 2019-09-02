@@ -1,0 +1,4 @@
+/* You can add global styles to this file, and also import other style files */
+.form-control.is-invalid{
+    background-image: none !important;
+}

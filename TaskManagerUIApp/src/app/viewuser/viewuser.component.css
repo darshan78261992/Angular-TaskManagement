@@ -1,0 +1,18 @@
+.butbackcolcor {
+    background-color: #A9A9A9;
+    border-color: rgba(14, 11, 11, 0.808);
+    color: black;
+    width:120px;
+  }
+.lblwidth{
+    width:69%;
+}
+.empwidth{
+    width:40%;
+}
+.tdpadding{
+    padding-left: 170px;
+}
+table.noborder  td {
+    border-top: 0; 
+}

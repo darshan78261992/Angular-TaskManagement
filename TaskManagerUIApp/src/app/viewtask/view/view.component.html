@@ -1,0 +1,302 @@
+<div class="pb-2 mt-4 mb-2 border-bottom">
+  <h1>View Tasks</h1>
+</div>
+<form class="d-none">
+  <div class="form-row form-inline ">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="task_Name" class="col-md-3 col-form-label">Task Name</label>
+        <div class="col-md-9">
+          <input type="text" class="col-md-12" id="task_Name" placeholder="Task Name" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="parenttask_Name" class="col-md-4 col-form-label">Parent Task Name</label>
+        <div class="col-md-8">
+          <input type="text" class="col-md-12" id="parenttask_Name" placeholder="Parent Task" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row form-inline">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="priorityFrom" class="col-md-6 col-form-label">Priority From</label>
+        <div class="col-md-6">
+          <input type="text" class="col-md-12" id="priorityFrom" placeholder="0" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="priorityTo" class="col-sm-6 col-form-label">Priority To</label>
+        <div class="col-sm-6">
+          <input type="text" class="col-md-12" id="priorityTo" placeholder="30" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="startDate" class="col-sm-5 col-form-label">Start Date</label>
+        <div class="col-sm-7">
+          <input type="date" class="col-md-12" id="startDate" placeholder="Start Date" />
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="endDate" class="col-sm-5 col-form-label">End Date</label>
+        <div class="col-sm-7 ">
+          <input type="date" class="col-md-12" id="endDate" placeholder="End Date" />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<form class="form-group">
+  <div class="form-row form-inline">
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-2">
+          <label for="project_Name" class="col-form-label"><strong>Project:</strong></label>
+        </div>
+        <div class="col-md-5">
+          <input type="hidden" name="project_Id" Id="project_Id" [(ngModel)]="ProjectId" />
+          <input type="text" class="form-control" name='projectname' #projectname="ngModel" readonly
+            [(ngModel)]="Project" placeholder="Project Name" />
+        </div>
+        <div class="col-md-5">
+          <button class="btn btn-secondary btn-sm mr-1" type="button" (click)='openProjectModal()'>Search</button>
+          <button class="btn btn-secondary btn-sm " type="button" (click)='clearSearch()'>Clear</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-inline ">
+        <label for="parenttask_Name" class="col-md-2 col-form-label">Sort By:</label>
+        <div class="form-group">
+
+          <div class="">
+            <button class="btn btn-secondary btn-sm  mr-1" type="button" (click)="TaskSort('startDate')">Start
+              Date</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="">
+            <button class="btn btn-secondary btn-sm  mr-1" type="button" (click)="TaskSort('endDate')">End
+            Date</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div>
+            <button class="btn btn-secondary btn-sm  mr-1" type="button"
+              (click)="TaskSort('priority')">Priority</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="">
+            <button class="btn btn-secondary btn-sm  mr-1" type="button"
+              (click)="TaskSort('completed')">Completed</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+<table class="table" *ngIf='tasks && tasks.length'>
+  <thead>
+    <tr>
+      <th class="d-none">
+      </th>
+      <th>
+        Task
+      </th>
+      <th>
+        Parent
+      </th>
+      <th>
+        Priority
+      </th>
+      <th>
+        Start
+      </th>
+      <th>
+        End
+      </th>
+      <th class="d-none">
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let task of tasks'>
+      <td class="d-none">{{task.TaskId}}</td>
+      <td>
+        <div class="card" style="width: 12rem;background:lightgrey;">
+          <div class="card-body">{{task.Task}}</div>
+        </div>
+      </td>
+      <td><span class="d-none">{{task.ParentTask_ID}}</span>
+        <div class="card" style="width: 12rem;background:lightgrey;">
+          <div class="card-body">{{task.ParentTask}}</div>
+        </div>
+      </td>
+      <td>{{task.Priority}}</td>
+      <td>{{task.StartDate | date:'dd/MM/yyyy'}}</td>
+      <td>{{task.EndDate | date:'dd/MM/yyyy'}}</td>
+      <td class="d-none">{{task.Status}}</td>
+      <td>
+        <div class="form-group">
+          <div class="form-group">
+            <button class="btn btn-secondary btn-sm" (click)="EditTask(task.TaskId)">Edit</button> |
+            <!--[routerLink]="['/update',task]" routerLinkActive="router-link-active" -->
+            <button class="btn btn-secondary btn-sm" (click)="EndTask(task.TaskId)">End Task</button> |
+            <button class="btn btn-warning btn-sm" (click)="onDeleteClick(task.TaskId)">Delete</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="bootstrapModel" class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-dialog-centered">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">Project List</h6>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <!-- model body section -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" class="form-control" id="searchmanager" placeholder="Search Manager..." name="project"
+              ngModel required />
+          </div>
+        </div>
+        <div class="row">
+          <ul class="list-group list-group-flush col-md-12">
+            <li *ngFor="let item of items" class='list-group-item d-flex justify-content-between align-items-center'
+              [class.selected]="item === selectedItem" (click)="onSelect(item)">
+              {{item.name}} <span>{{item.id}}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="row d-none" *ngIf="selectedItem">
+          <div><span>id: </span>{{selectedItem.id}}</div>
+          <div>
+            <label>name: {{selectedItem.name}}
+            </label>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCloseHandled()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onClickSearchFilter()">Select</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Update Task modal -->
+<div class="modal" #editModalForm tabindex="-1" role="dialog" [ngStyle]="{'display':Taskdisplay}">
+  <!-- modal-dialog -->
+  <div class="modal-dialog" role="document">
+    <!-- modal-content -->
+    <div class="modal-content">
+      <!-- modal-header -->
+      <div class="modal-header">
+        <h2>Edit Task</h2>
+        <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+      <!-- modal-body -->
+      <div class="modal-body">
+        <form #updateTaskForm="ngForm"
+          (ngSubmit)="updateTaskForm.form.valid && onModelSubmit(updateTaskForm,updateTaskForm.value)" novalidate>
+          <div class="form-group row">
+            <label for="taskName" class="col-sm-2 col-form-label">Task Name</label>
+            <div class="col-sm-10">
+              <input type="hidden" name="task_Id" id="task_Id" ngModel [(ngModel)]="TaskId" />
+              <input type="text" class="form-control" name="taskDetail" required id="taskDetail" placeholder="Task name"
+                #taskname="ngModel" ngModel [(ngModel)]="Task"
+                [ngClass]="{ 'is-invalid': updateTaskForm.submitted && taskname.invalid }" />
+              <div *ngIf="updateTaskForm.submitted && updateTaskForm.invalid" class="invalid-feedback">
+                <div *ngIf="updateTaskForm.errors.required">Task is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Priority</label>
+
+            <div class="col-sm-10">
+              <input type="range" class="custom-range" max="30" min="0" name="Priority" id="formControlRange" ngModel
+                required #priority="ngModel" [(ngModel)]="Priority"
+                [ngClass]="{ 'is-invalid': updateTaskForm.submitted && priority.invalid }" />
+              <div *ngIf="updateTaskForm.submitted && priority.invalid" class="invalid-feedback">
+                <div *ngIf="priority.errors.required">Priority is required.</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Parent Task</label>
+            <div class="col-sm-10">
+              <input type="text" name="parentTask" class="form-control" id="parentTask" ngModel [(ngModel)]="ParentTask"
+                readonly placeholder="Parent Task" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label">{{Status}}</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+            <div class="col-sm-10">
+              <input type="date" id="startDate" name="startDate" class="form-control" ngModel [(ngModel)]="StartDate"
+                required #startDate="ngModel" placeholder="Start date"
+                [ngClass]="{ 'is-invalid': updateTaskForm.submitted && startDate.invalid }" />
+              <div *ngIf="updateTaskForm.submitted && startDate.invalid" class="invalid-feedback">
+                <div *ngIf="startDate.errors.required">Start Date is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
+            <div class="col-sm-10">
+              <input type="date" name="endDate" id="endDate" class="form-control" ngModel [(ngModel)]="EndDate"
+                #endDate="ngModel" placeholder="End date"
+                [ngClass]="{ 'is-invalid': updateTaskForm.submitted && endDate.invalid }" />
+              <div *ngIf="updateTaskForm.submitted && endDate.invalid" class="invalid-feedback">
+                <div *ngIf="endDate.errors.required">End Date is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="col-sm-12 text-center">
+              <button type="submit" class="btn btn-primary">Update Task</button>
+              <!-- <button type="button" class="btn btn-secondary" (click)="onResetModelClick(templateForm)">Reset</button> -->
+            </div>
+            <!-- <button type="button" class="btn btn-default" (click)="closeModalDialog()">Close</button> -->
+          </div>
+        </form>
+      </div>
+
+      <!-- modal-footer -->
+
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

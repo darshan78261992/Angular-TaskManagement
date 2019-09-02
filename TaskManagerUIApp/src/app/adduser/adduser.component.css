@@ -1,0 +1,25 @@
+.butbackcolcor {
+    background-color: #A9A9A9;
+    border-color: rgba(14, 11, 11, 0.808);
+    color: black;
+    width: 28%;
+}
+.lblwidth{
+    width:69%;
+}
+.empwidth{
+    width:40%;
+}
+.searchpaddingleft
+{
+    padding-left: 190px;
+}
+.filterspaddingleft
+{
+    padding-left: 30px;
+}
+.paddingbottom
+{
+    padding-bottom: 20px;
+}
+

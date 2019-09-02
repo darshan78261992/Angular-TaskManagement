@@ -1,0 +1,23 @@
+.searchbutbackcolcor {
+    background-color: #A9A9A9;
+    border-color: rgba(14, 11, 11, 0.808);
+    color: black;
+    width: 62%;
+}
+.datetextboxwidth {
+    width: 62%;
+}
+.butbackcolcor {
+    background-color: #A9A9A9;
+    border-color: rgba(14, 11, 11, 0.808);
+    color: black;
+    width: 40%;
+}
+.list-group li.selected {
+    background-color:rgb(99, 66, 248);
+    color: white;
+  }
+  .list-group li.selected:hover {
+    background-color: #BBD8DC;
+    color: white;
+  }

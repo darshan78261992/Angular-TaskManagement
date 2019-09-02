@@ -1,0 +1,21 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Angular-TaskManagement/v15
+/.vs
+/TaskManager.API/.vs
+/TaskManager.API/packages
+/TaskManager.API/TaskManager.API/bin
+/TaskManager.API/TaskManager.API/obj
+/TaskManager.API/TaskManager.API.Tests/bin/Debug
+/TaskManager.API/TaskManager.API.Tests/obj
+/TaskManager.API/TaskManager.Business/bin/Debug
+/TaskManager.API/TaskManager.Business/obj
+/TaskManager.API/TaskManager.DAL/bin/Debug
+/TaskManager.API/TaskManager.DAL/obj
+/TaskManager.API/TaskManager.Model/bin/Debug
+/TaskManager.API/TaskManager.Model/obj
+/TaskManager.API/UnitTestProject1/bin/Debug
+/TaskManager.API/UnitTestProject1/obj
+/TaskManagerUIApp/.vscode

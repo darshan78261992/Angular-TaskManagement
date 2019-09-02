@@ -1,0 +1,22 @@
+[
+{
+    "TaskId": 1,
+    "ParentTaskId": 1,
+    "ParentTask": "Parent task 1",
+    "EndDate": "new Date('12/04/1996')",
+    "Priority": 5,
+    "StartDate": "new Date('12/04/1996')",
+    "Status": "open",
+    "Task": "This is my sample task"
+  },
+  {
+    "TaskId": 2,
+    "ParentTaskId": 1,
+   "ParentTask": "parent task 2",
+    "EndDate": "new Date('12/04/1996')",
+   "Priority": 6,
+    "StartDate": "new Date('11/04/1996')",
+    "Status": "open",
+    "Task": "This is my second task"
+  }
+]

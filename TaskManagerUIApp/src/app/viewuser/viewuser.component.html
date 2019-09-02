@@ -1,0 +1,92 @@
+<form class="form-group">
+  <div class="form-row form-inline paddingbottom">
+    <div class="col-md-5 searchpaddingleft">
+      <input type="text" class="form-control" id="searchText" placeholder="Search..." (keyup)="searchUser($event)" />      
+    </div>
+    <div class="col-md-6 filterspaddingleft">
+      <div class="form-inline ">
+        <label for="sortby" class="col-md-3 col-form-label">Sort By:</label>
+        <div class="form-group">
+          <div class="">
+            <button class="btn btn-secondary btn-sm  mr-1" type="button" (click)="UserSort('firstName')">First
+              Name</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="">
+            <button class="btn btn-secondary btn-sm  mr-1" type="button" (click)="UserSort('lastName')">Last Name</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div>
+            <button class="btn btn-secondary btn-sm  mr-1" type="button" (click)="UserSort('empId')">ID</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<table class="table" *ngIf='users && users.length'>
+  <thead>
+    <tr>
+      <th class="d-none">
+      </th>
+      <th class="d-none">
+      </th>
+      <th class="d-none">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let user of users'>
+      <td>
+        <table class="noborder">
+          <tr>
+            <td id="taskId" #TaskId class="d-none">{{user.UserId}}
+              <label #lblName id="lblName">
+                {{user.UserId}}
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td class="tdpadding">
+              <div class="form-control" style="width: 500px;background:lightgrey;">
+                <div id="tdiv" class="">{{user.FirstName}}</div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <button class="btn btn-primary mr-2 butbackcolcor" (click)="onEditUserClick(user)">Edit</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="tdpadding">
+              <div class="form-control" style="width: 500px;background:lightgrey;">
+                <div id="tdiv" class="">{{user.LastName}}</div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <button class="btn btn-secondary butbackcolcor" (click)="onDeleteUserClick(user)">Delete</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="tdpadding">
+              <div class="form-control" style="width: 500px;background:lightgrey;">
+                <div id="tdiv" class="">{{user.EmployeeId}}</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<router-outlet></router-outlet>

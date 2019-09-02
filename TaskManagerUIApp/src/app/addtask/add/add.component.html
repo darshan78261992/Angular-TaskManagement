@@ -1,0 +1,165 @@
+<div class="pb-2 mt-4 mb-2 border-bottom">
+  <h3>Add Tasks</h3>
+</div>
+<form #addtaskform="ngForm" (ngSubmit)="addtaskform.form.valid && onSubmit(addtaskform,addtaskform.value)" novalidate>
+  <div class="form-group row">
+    <label for="project" class="col-sm-2 col-form-label"><strong>Project:</strong></label>
+    <div class="col-sm-7">
+      <input type="hidden" name="project_Id" Id="project_Id" [(ngModel)]="ProjectId" />
+      <input type="text" class="form-control" name='projectname' #projectname="ngModel" readonly required="{{!checkParent.checked}}"
+        [(ngModel)]="Projects" placeholder="Project Name"
+        [ngClass]="{ 'is-invalid': addtaskform.submitted && projectname.invalid }" />
+      <div *ngIf="addtaskform.submitted && projectname.invalid" class="invalid-feedback">
+        <div *ngIf="projectname.errors.required">Project name is required.</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-sm btn-secondary searchbutbackcolcor" id="search" (click)='openprojectModal()'[disabled]="checkParent.checked"
+        type="button">Search</button>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="taskName" class="col-sm-2 col-form-label"><strong>Task:</strong></label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="taskName" placeholder="Task name" name="taskDetail"
+        #taskDetail='ngModel' [(ngModel)]="TaskDetails" required
+        [ngClass]="{ 'is-invalid': addtaskform.submitted && taskDetail.invalid }" />
+      <div *ngIf="addtaskform.submitted && taskDetail.invalid" class="invalid-feedback">
+        <div *ngIf="taskDetail.errors.required">Task Detail is required.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-2">
+    </div>
+    <div class="form-check col-sm-10">
+      <input class="form-check-input" type="checkbox" value="" id="setParentTask" name="chkIsParent" ngModel
+        #checkParent (change)="changeCheck($event)">     
+      <label class="form-check-label" for="setParentTask">
+        Parent Task
+      </label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label"><strong>Priority:</strong></label>
+
+    <div class="col-sm-9" style="display: inline-flex">
+      <label>0</label>
+      <input #priorityInput type="range" class="custom-range" max="30" min="0" value="0" step="1" id="formControlRange"
+        name="priority" #priority='ngModel' [(ngModel)]="Priority" required="{{!checkParent.checked}}"
+        disabled="{{checkParent.checked}}">
+      <label>30</label>
+    </div>
+    <div *ngIf="addtaskform.submitted && priority.invalid" class="invalid-feedback">
+      <div *ngIf="priority.errors.required">Set Priority.</div>
+    </div>
+
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label"><strong>Parent Task:</strong></label>
+    <div class="col-sm-7 ">
+      <input type="hidden" name="parentTask_Id" id="parentTask_Id" [(ngModel)]="prntTaskId" />
+      <input type="text" class="form-control" name='parentTask' #parentTask="ngModel" ngModel [(ngModel)]="prntTask"
+        placeholder="Parent Task" required="{{!checkParent.checked}}" readonly
+        [ngClass]="{ 'is-invalid': addtaskform.submitted && parentTask.invalid }" />
+        <div *ngIf="addtaskform.submitted && parentTask.invalid" class="invalid-feedback">
+            <div *ngIf="parentTask.errors.required">Parent Task is required.</div>
+          </div>
+    </div>
+    <div class="col-sm-3">
+      <button #searchParentBtn class="btn btn-sm btn-secondary searchbutbackcolcor" id="searchparenttask"
+        (click)='openparenttaskModal()' type="button" [disabled]="checkParent.checked">Search</button>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="startDate" class="col-sm-2 col-form-label"><strong>Start Date:</strong></label>
+    <div class="col-sm-4">
+      <input type="date" id="startDate" class="form-control datetextboxwidth" placeholder="start date" name="startDate"
+        #startDate='ngModel' ngModel required="{{!checkParent.checked}}" disabled="{{checkParent.checked}}"
+        [ngClass]="{ 'is-invalid': addtaskform.submitted && startDate.invalid }" />
+        <div *ngIf="addtaskform.submitted && startDate.invalid" class="invalid-feedback">
+            <div *ngIf="startDate.errors.required">Start Date is required.</div>
+          </div>
+    </div>
+
+    <label for="endDate" class="col-sm-2 col-form-label"><strong>End Date:</strong></label>
+    <div class="col-sm-4">
+      <input type="date" id="endDate" class="form-control datetextboxwidth" placeholder="end date" name="endDate"
+        #endDate='ngModel' ngModel required="{{!checkParent.checked}}" disabled="{{checkParent.checked}}"
+        [ngClass]="{ 'is-invalid': addtaskform.submitted && endDate.invalid }" />
+        <div *ngIf="addtaskform.submitted && endDate.invalid" class="invalid-feedback">
+            <div *ngIf="endDate.errors.required">End Date is required.</div>
+          </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label"><strong>User:</strong> </label>
+    <div class="col-sm-7 ">
+      <input type="hidden" name="uname_Id" id="uname_Id" [(ngModel)]="unameId"/>
+      <input type="text" class="form-control" name='username' #username="ngModel" [(ngModel)]="uname"
+        placeholder="Username" readonly required="{{!checkParent.checked}}"
+        [ngClass]="{ 'is-invalid': addtaskform.submitted && username.invalid }" />
+        <div *ngIf="addtaskform.submitted && username.invalid" class="invalid-feedback">
+            <div *ngIf="username.errors.required">Username is required.</div>
+          </div>
+    </div>
+    <div class="col-sm-3">
+      <button #searchUserBtn class="btn btn-sm btn-secondary searchbutbackcolcor" id="searchuser"
+        (click)='openuserModal()' type="button" [disabled]="checkParent.checked">Search</button>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6">
+      <button type="submit" id="btnaddproject" class="btn btn-primary mr-2 butbackcolcor">Add</button>
+      <button type="button" class="btn btn-secondary butbackcolcor" (click)='onResetClick(addtaskform)'>Reset</button>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div id="modal-backdrop" class="modal-backdrop-transparent modal-transition modal-backdrop-grey"
+    [ngStyle]="{'display':display}"></div>
+  <!-- Modal section -->
+  <div id="bootstrapModel" class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-dialog-centered">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">{{modalTitle}}</h6>
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <!-- model body section -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="text" class="form-control" id="searchmanager" placeholder="Search Manager..." name="project"
+                ngModel required />
+            </div>
+          </div>
+          <div class="row">
+            <ul class="list-group list-group-flush col-md-12">
+              <li *ngFor="let item of items" class='list-group-item d-flex justify-content-between align-items-center'
+                [class.selected]="item === selectedItem" (click)="onSelect(item)">
+                {{item.name}} <span>{{item.id}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="row d-none" *ngIf="selectedItem">
+            <div><span>id: </span>{{selectedItem.id}}</div>
+            <div>
+              <label>name: {{selectedItem.name}}
+              </label>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCloseHandled()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="onClickSearchFilter()">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
